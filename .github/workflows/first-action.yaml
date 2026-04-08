@@ -1,0 +1,12 @@
+name: Demo
+
+on: Workflow_dispatch
+jobs:
+  first-job-name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print step
+        run: echo "Hello world!"
+
+      - name: Print environment variables
+        run: env

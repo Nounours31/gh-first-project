@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run repository validation
+        run: |
+          echo "GitHub Actions workflow is running"
+          echo "Repository path: $GITHUB_WORKSPACE"
+          git status
+
+      - name: Install dependencies if present
+        run: |
+          if [ -f package.json ]; then
+            npm ci
+          else
+            echo "No package.json found; skipping install"
+          fi
+
+      - name: Run tests if present
+        run: |
+          if [ -f package.json ]; then
+            npm test
+          else
+            echo "No package.json found; skipping tests"
+          fi
